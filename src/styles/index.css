@@ -1,0 +1,20 @@
+body{
+  font-size: 16px;
+  text-align: center;
+}
+
+
+.photogrid{
+  display: flex;
+  flex-wrap: wrap;
+  background-color: DodgerBlue;
+}
+
+.photo{
+  background-color: #f1f1f1;
+  width: 150px;
+  margin: 8px auto 8px auto;
+  text-align: center;
+  line-height: 100px;
+  font-size: 30px;
+}
