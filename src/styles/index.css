@@ -18,3 +18,15 @@ body{
   line-height: 100px;
   font-size: 30px;
 }
+
+.add-button{
+  align-self: center;
+}
+
+.addPhoto{
+  margin: auto;
+  width: 300px;
+  border: 3px solid #73AD21;
+  padding: 30px;
+  align-items: center;
+}

@@ -9,28 +9,41 @@ class App extends Component {
       this.state = {
         posts :[]
        }
+       this.removePhoto=this.removePhoto.bind(this);
+       this.addPhoto=this.addPhoto.bind(this);
       }
   
 
   componentDidMount(){
     const data=[
-      {id:1, src:'One',desc:'First photo'},
-      {id:1, src:'Two',desc:'Second photo'},                   
-      {id:1, src:'Three',desc:'Third photo'},
-      {id:1, src:'Four',desc:'Fourth photo'},
-      {id:1, src:'Five',desc:'Fifth photo'},
-      {id:1, src:'Six',desc:'Sixth photo'},
-      {id:1, src:'Four',desc:'Eight photo'},
-      {id:1, src:'Five',desc:'Ninth photo'},
-      {id:1, src:'Six',desc:'Tenth photo'},
-      {id:1, src:'Seven',desc:'Seventh photo'}
+      
+      {id:Number(new Date()), src:'One',desc:'First photo'},
+      {id:Number(new Date()), src:'Two',desc:'Second photo'},                   
+      {id:Number(new Date()), src:'Three',desc:'Third photo'},
+      {id:Number(new Date()), src:'Four',desc:'Fourth photo'},
+      {id:Number(new Date()), src:'Five',desc:'Fifth photo'},
+      {id:Number(new Date()), src:'Six',desc:'Sixth photo'},
+      {id:Number(new Date()), src:'Seven',desc:'Seventh photo'},
+      {id:Number(new Date()), src:'Eight',desc:'Eighth photo'},
+      {id:Number(new Date()), src:'Nine',desc:'Ninth photo'},
+      {id:Number(new Date()), src:'Ten',desc:'Tenth photo'}
   ]
   this.setState({posts:data})
   }
+  
 
-  removePhoto=(post) =>{
-    const newPost=this.state.posts.filter( item => item!==post  )
-    this.setState({posts:newPost});
+  addPhoto=(post)=>{
+    console.log('add photo for ',post);
+    this.setState({posts:this.state.posts.concat([post])});
+  }
+
+  removePhoto=(removedPost) =>{
+    //const newPost=this.state.posts.filter( item => item!==post  )
+    console.log(`remove ${removedPost}`);
+    this.setState(  (state) =>({
+        posts: state.posts.filter( post => post !==removedPost  )
+    }))
+   // this.setState({posts:newPost});
   }
 
   render() {
@@ -41,10 +54,14 @@ class App extends Component {
 
        <Title title={'Photowall'}/>
       <Route exact path="/"  render={
-        ()=>(<Photowall posts={this.state.posts}  removePhoto={this.removePhoto}/>)
+        ()=>(<Photowall posts={this.state.posts}  onRemovePhoto={this.removePhoto}/>)
       }/>
        
-      <Route exact path="/AddPhoto" render={ ()=><AddPhoto/>}/>
+      <Route exact path="/AddPhoto" render={ ({history})=><AddPhoto addPhoto={ (addedPost)=>{
+        this.addPhoto(addedPost);
+        history.push("/");  
+      }}
+         />}/>
       
       </div>
     );
